@@ -6,7 +6,7 @@ COPY . /go-plugins
 
 RUN cd /go-plugins && \
    go mod download && \
-   go build kong-go-plugin-GeoIP.go
+   go build kong-go-plugin-geoip.go
 
 FROM kong:2.8
 COPY --from=builder /go-plugins/kong-go-plugin-GeoIP /usr/local/bin/
