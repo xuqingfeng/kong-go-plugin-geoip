@@ -1,4 +1,4 @@
-module github.com/xuqingfeng/kong-go-plugin-GeoIP
+module github.com/xuqingfeng/kong-go-plugin-geoip
 
 go 1.18
 
