@@ -10,4 +10,4 @@ RUN cd /go-plugins && \
 
 FROM kong:2.8
 COPY --from=builder /go-plugins/kong-go-plugin-geoip /usr/local/bin/
-COPY --from=builder /go-plugins/data/geoip.dat /data/
+COPY --from=builder /go-plugins/data/GeoLite2-City.mmdb /data/

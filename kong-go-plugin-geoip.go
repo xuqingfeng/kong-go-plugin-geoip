@@ -47,7 +47,7 @@ func (Config) Access(kong *pdk.PDK) {
 
 func lookupGeoInfoFromDB(ip string) (string, error) {
 
-	db, err := geoip2.Open("/data/geoip.dat")
+	db, err := geoip2.Open("/data/GeoLite2-City.mmdb")
 	if err != nil {
 		return "", err
 	}
