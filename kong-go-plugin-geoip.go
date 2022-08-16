@@ -26,7 +26,7 @@ func main() {
 	server.StartServer(New, Version, Priority)
 }
 
-func (Config) Access(kong *pdk.PDK) {
+func (conf Config) Access(kong *pdk.PDK) {
 
 	// read GeoIP db
 	ip, err := kong.Client.GetIp()
@@ -43,6 +43,9 @@ func (Config) Access(kong *pdk.PDK) {
 	kong.ServiceRequest.SetHeader("X-Country-Code", countryCode)
 
 	// check if echo back to client
+	if conf.echo_down_stream {
+		kong.Response.SetHeader("X-Country-Code", countryCode)
+	}
 }
 
 func lookupGeoInfoFromDB(ip string) (string, error) {
