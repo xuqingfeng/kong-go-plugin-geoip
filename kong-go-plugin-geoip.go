@@ -14,8 +14,8 @@ const (
 )
 
 type Config struct {
-	geo_ip_db_path   string
-	echo_down_stream bool
+	Geo_ip_db_path   string
+	Echo_down_stream bool
 }
 
 func New() interface{} {
@@ -43,7 +43,7 @@ func (conf Config) Access(kong *pdk.PDK) {
 	kong.ServiceRequest.SetHeader("X-Country-Code", countryCode)
 
 	// check if echo back to client
-	if conf.echo_down_stream {
+	if conf.Echo_down_stream {
 		kong.Response.SetHeader("X-Country-Code", countryCode)
 	}
 }
