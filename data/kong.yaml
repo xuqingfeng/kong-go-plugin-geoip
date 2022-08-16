@@ -1,0 +1,18 @@
+_format_version: "2.1"
+_transform: true
+services:
+  - name: test
+    url: https://reqres.in/api/users?page=2
+    routes:
+      - name: test
+        paths:
+          - "/test"
+    plugins:
+      - name: kong-go-plugin-geoip
+        config:
+          echo_down_stream: true
+
+plugins:
+  - name: file-log
+    config:
+      path: /dev/stdout
