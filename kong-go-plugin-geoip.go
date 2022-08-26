@@ -29,7 +29,7 @@ func main() {
 func (conf Config) Access(kong *pdk.PDK) {
 
 	// read GeoIP db
-	ip, err := kong.Client.GetIp()
+	ip, err := kong.Client.GetForwardedIp()
 	if err != nil {
 		kong.Log.Err(err.Error())
 	}
