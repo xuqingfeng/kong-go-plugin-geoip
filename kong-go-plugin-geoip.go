@@ -14,7 +14,7 @@ const (
 )
 
 type Config struct {
-	Geo_ip_db_path   string
+	Db_path          string
 	Echo_down_stream bool
 }
 
@@ -35,7 +35,7 @@ func (conf Config) Access(kong *pdk.PDK) {
 	}
 
 	// get country code
-	countryCode, err := lookupGeoInfoFromDB(ip)
+	countryCode, err := lookupGeoInfoFromDB(ip, conf.Db_path)
 	if err != nil {
 		kong.Log.Err(err.Error())
 	}
@@ -48,9 +48,10 @@ func (conf Config) Access(kong *pdk.PDK) {
 	}
 }
 
-func lookupGeoInfoFromDB(ip string) (string, error) {
+// FIXME: load from plugin init
+func lookupGeoInfoFromDB(ip string, path string) (string, error) {
 
-	db, err := geoip2.Open("/data/GeoLite2-City.mmdb")
+	db, err := geoip2.Open(path)
 	if err != nil {
 		return "", err
 	}

@@ -10,6 +10,7 @@ services:
     plugins:
       - name: kong-go-plugin-geoip
         config:
+          db_path: /data/GeoLite2-City.mmdb
           echo_down_stream: true
 
 plugins:
