@@ -1,8 +1,5 @@
-build-docker-image:
-	docker build --no-cache -t xuqingfeng/kong-go-plugin-geoip .
-
-push-docker-image:
-	docker push xuqingfeng/kong-go-plugin-geoip
+build-and-push-docker-image:
+	docker buildx build --push --platform linux/arm64,linux/amd64 -t xuqingfeng/kong-go-plugin-geoip .
 
 fmt:
 	go fmt ./...
