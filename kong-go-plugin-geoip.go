@@ -39,11 +39,13 @@ func (conf Config) Access(kong *pdk.PDK) {
 		kong.Log.Err(err.Error())
 	}
 	// append country info in request header and send to upstream
+	kong.ServiceRequest.SetHeader("X-Country-Name", geoIPHeaders.Country.Names["en"])
 	kong.ServiceRequest.SetHeader("X-Country-Code", geoIPHeaders.Country.ISOCode)
 	kong.ServiceRequest.SetHeader("X-City-Name", geoIPHeaders.City.Names["en"])
 
 	// check if echo back to client
 	if conf.Echo_down_stream {
+		kong.Response.SetHeader("X-Country-Name", geoIPHeaders.Country.Names["en"])
 		kong.Response.SetHeader("X-Country-Code", geoIPHeaders.Country.ISOCode)
 		kong.Response.SetHeader("X-City-Name", geoIPHeaders.City.Names["en"])
 	}
@@ -54,7 +56,8 @@ type GeoIPHeaders struct {
 		Names map[string]string `maxminddb:"names"`
 	} `maxminddb:"city"`
 	Country struct {
-		ISOCode string `maxminddb:"iso_code"`
+		Names   map[string]string `maxminddb:"names"`
+		ISOCode string            `maxminddb:"iso_code"`
 	} `maxminddb:"country"`
 }
 
