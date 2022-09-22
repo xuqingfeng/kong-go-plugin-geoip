@@ -14,7 +14,7 @@ const (
 )
 
 type Config struct {
-	Db_path          string
+	Db_file          string
 	Echo_down_stream bool
 }
 
@@ -34,7 +34,7 @@ func (conf Config) Access(kong *pdk.PDK) {
 	}
 
 	// get country code
-	geoIPHeaders, err := lookupGeoInfoFromDB(ip, conf.Db_path)
+	geoIPHeaders, err := lookupGeoInfoFromDB(ip, conf.Db_file)
 	if err != nil {
 		kong.Log.Err(err.Error())
 	}
